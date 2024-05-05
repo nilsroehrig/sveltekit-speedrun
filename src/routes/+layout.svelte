@@ -13,6 +13,9 @@
 			</ul>
 			<ul>
 				<li><a href="/">Startseite</a></li>
+				{#if $page.data.session}
+					<li><a href="/posts/new">Beitrag erstellen</a></li>
+				{/if}
 				<li>
 					{#if $page.data.session}
 						<SignOut options={{ redirect: true, redirectTo: '/' }} />

@@ -10,3 +10,11 @@ export const PostDTO = z.object({
 });
 
 export type PostDTO = z.infer<typeof PostDTO>;
+
+export const UpsertPostDTO = z.object({
+	id: z.number().optional(),
+	title: z.string().min(1),
+	content: z.string().min(1),
+});
+
+export type UpsertPostDTO = z.infer<typeof UpsertPostDTO>;
