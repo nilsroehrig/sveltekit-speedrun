@@ -23,3 +23,24 @@ export async function load({ platform }) {
 function isD1Result(res?: D1Response): res is D1Result {
 	return !!res && res.success;
 }
+
+export const actions = {
+	async default({ platform, locals, request }) {
+		const session = await locals.auth();
+		if (!session) {
+			error(401);
+		}
+		if (!platform) {
+			error(500);
+		}
+
+		const formData = await request.formData();
+		const id = formData.get('id');
+
+		if (!id) {
+			error(400);
+		}
+
+		await platform.env.DB.prepare('DELETE FROM posts WHERE id = ?').bind(id).run();
+	}
+};
