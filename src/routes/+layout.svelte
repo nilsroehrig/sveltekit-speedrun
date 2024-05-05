@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { page } from '$app/stores';
+	import { SignIn, SignOut } from '@auth/sveltekit/components';
 	import '@picocss/pico';
 	import '@picocss/pico/css/pico.colors.css';
 </script>
@@ -11,15 +13,22 @@
 			</ul>
 			<ul>
 				<li><a href="/">Startseite</a></li>
+				<li>
+					{#if $page.data.session}
+						<SignOut options={{ redirect: true, redirectTo: '/' }} />
+					{:else}
+						<SignIn />
+					{/if}
+				</li>
 			</ul>
 		</nav>
 	</header>
-	
+
 	<main class="container">
 		<slot></slot>
 	</main>
-	
-	<footer >
+
+	<footer>
 		<p class="container">&copy; 2024 SvelteKit SpeedRun</p>
 	</footer>
 </div>
@@ -40,5 +49,10 @@
 		padding-top: var(--pico-spacing);
 		border-top: solid thin var(--pico-muted-border-color);
 		text-align: center;
+	}
+
+	:global(.signInButton button),
+	:global(.signOutButton button) {
+		margin-bottom: 0;
 	}
 </style>
