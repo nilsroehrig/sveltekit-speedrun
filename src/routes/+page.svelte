@@ -11,11 +11,13 @@
 	{#each data.posts as post (post.id)}
 		<article transition:slide animate:flip>
 			<header>
-				{post.title}
 				{#if $page.data.session}
+					<a href="/posts/{post.id}">{post.title}</a>
 					<button class="outline secondary small" type="submit" name="id" value={post.id}
 						>Löschen</button
 					>
+				{:else}
+					{post.title}
 				{/if}
 			</header>
 			<div>{post.content}</div>

@@ -12,7 +12,7 @@ export const PostDTO = z.object({
 export type PostDTO = z.infer<typeof PostDTO>;
 
 export const UpsertPostDTO = z.object({
-	id: z.number().optional(),
+	id: z.coerce.number().optional(),
 	title: z.string().min(1),
 	content: z.string().min(1),
 });

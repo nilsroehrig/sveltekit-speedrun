@@ -1,5 +1,10 @@
 <script lang="ts">
-	export let form;
+	export let form, data;
+	let post = {
+		id: data.post?.id ?? null,
+		title: data.post?.title ?? null,
+		content: data.post?.content ?? null
+	};
 </script>
 
 {#if form}
@@ -17,15 +22,18 @@
 {/if}
 
 <form action="?/upsert" method="post">
+	<input type="hidden" name="id" value={post.id} disabled={!post.id} />
 	<label for="title">
 		Titel:
-		<input type="text" id="title" name="title" />
+		<input type="text" id="title" name="title" bind:value={post.title} />
 	</label>
 	<label for="content">
 		Inhalt:
-		<textarea id="content" name="content"></textarea>
+		<textarea id="content" name="content" bind:value={post.content}></textarea>
 	</label>
-	<button type="submit">Erstellen</button>
+	<button type="submit">
+		{post.id ? 'Aktualisieren' : 'Erstellen'}
+	</button>
 </form>
 
 <style>
